@@ -4,6 +4,9 @@ import { useState, useEffect } from 'react'
 import type { Job } from '@/types/job'
 import JobForm from '@/components/JobForm'
 
+// Create a type for the form data
+type JobFormData = Partial<Job>
+
 export default function DashboardPage() {
   const [jobs, setJobs] = useState<Job[]>([])
   const [showForm, setShowForm] = useState(false)
@@ -34,7 +37,7 @@ export default function DashboardPage() {
     setFormData(undefined)
   }
 
-  async function handleSubmit(data: any, isEdit: boolean) {
+  async function handleSubmit(data: JobFormData, isEdit: boolean) {
     if (isEdit && data.id) {
       const res = await fetch(`/api/jobs/${data.id}`, {
         method: 'PUT',
